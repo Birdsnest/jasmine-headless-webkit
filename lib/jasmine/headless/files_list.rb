@@ -11,17 +11,7 @@ module Jasmine::Headless
 
     class << self
       def asset_paths
-        return @asset_paths if @asset_paths
-
-        require 'rubygems'
-
-        raise StandardError.new("A newer version of Rubygems is required to use vendored assets. Please upgrade.") if !Gem::Specification.respond_to?(:each)
-
-        @asset_paths = []
-
-        Gem::Specification.each { |gemspec| @asset_paths += get_paths_from_gemspec(gemspec) }
-
-        @asset_paths
+        @asset_paths ||= []
       end
 
       def get_paths_from_gemspec(gemspec)
